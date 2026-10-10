@@ -33,8 +33,8 @@ export const ARTIFACT_RECORDS = [
       en: "British Museum (BM 92687) • Alqami Repository"
     },
     model: {
-      glb: "/models/babylonian_map_of_the_world_tablet_-_imago_mundi.glb",
-      poster: "/images/praha_front.jpg",
+      glb: "./models/babylonian_map_of_the_world_tablet_-_imago_mundi.glb",
+      poster: "./images/praha_front.jpg",
       scale: "1.2 1.2 1.2",
       cameraOrbit: "0deg 75deg 105%",
       fieldOfView: "30deg",
@@ -111,8 +111,8 @@ export const ARTIFACT_RECORDS = [
       en: "Al-Kafeel Museum • Al-Abbas Holy Shrine"
     },
     model: {
-      glb: "/models/Zulfiqar_Sword.glb",
-      poster: "/images/alqami_artifact.jpg",
+      glb: "./models/Zulfiqar_Sword.glb",
+      poster: "./images/alqami_artifact.jpg",
       scale: "0.85 0.85 0.85",
       cameraOrbit: "45deg 60deg 115%",
       fieldOfView: "35deg",
@@ -191,8 +191,8 @@ export const ARTIFACT_RECORDS = [
       en: "By Mir Damad Muhammad Baqir al-Husayni al-Astarabadi."
     },
     model: {
-      glb: "/models/model.glb",
-      poster: "/images/manuscript.jpg",
+      glb: "./models/model.glb",
+      poster: "./images/manuscript.jpg",
       scale: "0.95 0.95 0.95",
       cameraOrbit: "25deg 70deg 110%",
       fieldOfView: "32deg",
@@ -298,8 +298,8 @@ export const ARTIFACT_RECORDS = [
       en: "Museum of Islamic Art • Alqami Spatial Vault"
     },
     model: {
-      glb: "/models/Old_Islamic_Helmet.glb",
-      poster: "/images/praha_side2.jpg",
+      glb: "./models/Old_Islamic_Helmet.glb",
+      poster: "./images/praha_side2.jpg",
       scale: "0.75 0.75 0.75",
       cameraOrbit: "-30deg 70deg 110%",
       fieldOfView: "30deg",
@@ -368,8 +368,8 @@ export const ARTIFACT_RECORDS = [
       en: "The Iraq Museum, Baghdad • Alqami Vault"
     },
     model: {
-      glb: "/models/old-babylonian_cuneiform_tablet_s264.glb",
-      poster: "/images/praha_side1.jpg",
+      glb: "./models/old-babylonian_cuneiform_tablet_s264.glb",
+      poster: "./images/praha_side1.jpg",
       scale: "1.1 1.1 1.1",
       cameraOrbit: "10deg 75deg 105%",
       fieldOfView: "28deg",
@@ -438,8 +438,8 @@ export const ARTIFACT_RECORDS = [
       en: "Al-Abbas Holy Shrine Museum • Karbala"
     },
     model: {
-      glb: "/models/saqakhane_bowl.glb",
-      poster: "/images/praha_top.jpg",
+      glb: "./models/saqakhane_bowl.glb",
+      poster: "./images/praha_top.jpg",
       scale: "0.9 0.9 0.9",
       cameraOrbit: "45deg 55deg 105%",
       fieldOfView: "30deg",
@@ -508,8 +508,8 @@ export const ARTIFACT_RECORDS = [
       en: "National Museum of Iraq • Alqami Vault"
     },
     model: {
-      glb: "/models/prayer_niche_mihrab.glb",
-      poster: "/images/kufic.jpg",
+      glb: "./models/prayer_niche_mihrab.glb",
+      poster: "./images/kufic.jpg",
       scale: "0.45 0.45 0.45",
       cameraOrbit: "0deg 80deg 110%",
       fieldOfView: "35deg",
@@ -578,8 +578,8 @@ export const ARTIFACT_RECORDS = [
       en: "Louvre Museum (Original) • Alqami Spatial Vault"
     },
     model: {
-      glb: "/models/stela_of_hammurabi_replica.glb",
-      poster: "/images/praha_back.jpg",
+      glb: "./models/stela_of_hammurabi_replica.glb",
+      poster: "./images/praha_back.jpg",
       scale: "0.55 0.55 0.55",
       cameraOrbit: "0deg 85deg 110%",
       fieldOfView: "30deg",
@@ -648,8 +648,8 @@ export const ARTIFACT_RECORDS = [
       en: "The Iraq Museum • Alqami Vault"
     },
     model: {
-      glb: "/models/bowl.glb",
-      poster: "/images/praha_top.jpg",
+      glb: "./models/bowl.glb",
+      poster: "./images/praha_top.jpg",
       scale: "1.0 1.0 1.0",
       cameraOrbit: "30deg 65deg 105%",
       fieldOfView: "30deg",
@@ -718,8 +718,8 @@ export const ARTIFACT_RECORDS = [
       en: "Alqami Heritage Foundation"
     },
     model: {
-      glb: "/models/meshy-model.glb",
-      poster: "/images/quran.jpg",
+      glb: "./models/meshy-model.glb",
+      poster: "./images/quran.jpg",
       scale: "0.8 0.8 0.8",
       cameraOrbit: "0deg 75deg 105%",
       fieldOfView: "30deg",

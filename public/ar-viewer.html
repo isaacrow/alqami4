@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
   
   <!-- Model Viewer Web Component -->
-  <script type="module" src="/js/model-viewer.min.js"></script>
+  <script type="module" src="./js/model-viewer.min.js"></script>
 
   <style>
     :root {
@@ -542,7 +542,7 @@
          ══════════════════════════════════════════════════════════════ -->
     <header class="top-navbar">
       <div class="brand-section">
-        <img src="/images/logo.png" alt="علقمي" class="brand-logo" />
+        <img src="./images/logo.png" alt="علقمي" class="brand-logo" />
         <div class="header-details">
           <div class="header-title" id="title-text">مخطوط القبسات — الميرداماد</div>
           <div class="header-badges">
@@ -576,7 +576,7 @@
     <div class="viewport-3d-stage">
       <model-viewer
         id="main-model-viewer"
-        src="/models/model.glb"
+        src="./models/model.glb"
         alt="Alqami 3D Asset"
         camera-controls
         touch-action="pan-y"
@@ -586,7 +586,7 @@
         reveal="auto"
         auto-rotate
         rotation-per-second="10deg"
-        draco-decoder-location="/draco/"
+        draco-decoder-location="./draco/"
         exposure="1.25"
         shadow-intensity="1.5"
         shadow-softness="0.8"
@@ -823,7 +823,7 @@
     const targetModel = urlParams.get('model');
 
     // Fetch records data
-    fetch('/records-data.json')
+    fetch('./records-data.json')
       .then(res => res.json())
       .then(records => {
         if (targetId) {
@@ -846,7 +846,8 @@
     function initViewer() {
       const viewer = document.getElementById('main-model-viewer');
       if (currentArtifact) {
-        viewer.src = currentArtifact.model.glb;
+        const cleanGlb = currentArtifact.model.glb.startsWith("/") ? "." + currentArtifact.model.glb : currentArtifact.model.glb;
+        viewer.src = cleanGlb;
         viewer.setAttribute('alt', currentArtifact.title[currentLang]);
         renderData();
       }

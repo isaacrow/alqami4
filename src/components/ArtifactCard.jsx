@@ -58,7 +58,7 @@ export default function ArtifactCard({ artifact, onSelect, onOpenAR, lang }) {
           camera-controls
           touch-action="pan-y"
           interaction-prompt="none"
-          draco-decoder-location="/draco/"
+          draco-decoder-location="./draco/"
           loading="eager"
           reveal="auto"
           camera-target="auto auto auto"

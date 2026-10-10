@@ -74,7 +74,7 @@ export default function Ambient3DBackground() {
           bounds="tight"
           loading="eager"
           reveal="auto"
-          draco-decoder-location="/draco/"
+          draco-decoder-location="./draco/"
           exposure="0.7"
           shadow-intensity="0"
           interaction-prompt="none"

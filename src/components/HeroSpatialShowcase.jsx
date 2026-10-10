@@ -162,7 +162,7 @@ export default function HeroSpatialShowcase({
               camera-controls
               touch-action="pan-y"
               interaction-prompt="none"
-              draco-decoder-location="/draco/"
+              draco-decoder-location="./draco/"
               camera-target="auto auto auto"
               bounds="tight"
               loading="eager"

@@ -93,7 +93,7 @@ export default function Viewer3DModal({ artifact, onClose, onOpenAR, lang }) {
             alt={artifact.title[lang]}
             camera-controls
             touch-action="pan-y"
-            draco-decoder-location="/draco/"
+            draco-decoder-location="./draco/"
             camera-target="auto auto auto"
             bounds="tight"
             loading="eager"

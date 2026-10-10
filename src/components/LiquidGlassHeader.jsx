@@ -25,7 +25,7 @@ export default function LiquidGlassHeader({
             {/* Alqami Logo Box */}
             <div className="relative h-11 px-3.5 py-1.5 rounded-2xl overflow-hidden flex items-center justify-center bg-white/10 border border-white/25 shadow-lg flex-shrink-0">
               <img 
-                src="/images/logo.png" 
+                src="./images/logo.png" 
                 alt="علقمي" 
                 className="h-6 w-auto max-w-[100px] object-contain filter drop-shadow"
                 onError={(e) => {
