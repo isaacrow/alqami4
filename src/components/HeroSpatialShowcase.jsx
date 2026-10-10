@@ -42,10 +42,10 @@ export default function HeroSpatialShowcase({
       const nx = (e.clientX / window.innerWidth - 0.5) * 2; // -1 to 1
       const ny = (e.clientY / window.innerHeight - 0.5) * 2; // -1 to 1
 
-      // Subtle responsive 3D tilt following cursor
+      // Subtle responsive 3D tilt following cursor (centered)
       targetOrbitRef.current = {
-        theta: 45 + nx * 45,
-        phi: Math.max(50, Math.min(100, 75 + ny * 20))
+        theta: nx * 30,
+        phi: Math.max(55, Math.min(95, 75 + ny * 15))
       };
     };
 
@@ -57,7 +57,7 @@ export default function HeroSpatialShowcase({
         const tgt = targetOrbitRef.current;
         cur.theta += (tgt.theta - cur.theta) * 0.06;
         cur.phi += (tgt.phi - cur.phi) * 0.06;
-        modelViewerRef.current.cameraOrbit = `${cur.theta.toFixed(1)}deg ${cur.phi.toFixed(1)}deg auto`;
+        modelViewerRef.current.cameraOrbit = `${cur.theta.toFixed(1)}deg ${cur.phi.toFixed(1)}deg 115%`;
       }
       rafRef.current = requestAnimationFrame(animate);
     };
@@ -150,8 +150,8 @@ export default function HeroSpatialShowcase({
 
           </div>
 
-          {/* 3D Central Showcase Canvas (Bigger & Centered with Mouse Tracking) */}
-          <div className="lg:col-span-8 relative h-[500px] sm:h-[600px] md:h-[680px] lg:h-[750px] rounded-3xl overflow-hidden flex items-center justify-center">
+          {/* 3D Central Showcase Canvas (Centered with generous padding and Mouse Tracking) */}
+          <div className="lg:col-span-8 relative h-[500px] sm:h-[600px] md:h-[680px] lg:h-[750px] rounded-3xl overflow-hidden flex items-center justify-center px-6 sm:px-12 lg:px-20 py-4">
             
             {/* Live Model Viewer */}
             <model-viewer
@@ -172,8 +172,10 @@ export default function HeroSpatialShowcase({
               shadow-intensity="1.5"
               shadow-softness="0.75"
               exposure="1.25"
-              camera-orbit="45deg 75deg auto"
-              field-of-view="26deg"
+              camera-orbit="0deg 75deg 115%"
+              min-camera-orbit="auto auto 40%"
+              max-camera-orbit="auto auto 300%"
+              field-of-view="36deg"
               onPointerDown={() => { isInteractingRef.current = true; }}
               onPointerUp={() => { isInteractingRef.current = false; }}
               className="w-full h-full block cursor-grab active:cursor-grabbing"

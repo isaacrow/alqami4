@@ -72,7 +72,7 @@ export default function Viewer3DModal({ artifact, onClose, onOpenAR, lang }) {
     <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 md:p-6 bg-black/90 backdrop-blur-2xl animate-fade-in">
       
       {/* Main Spatial Stage Window */}
-      <div className="relative w-full max-w-7xl h-[92vh] glass-panel-primary rounded-[2.5rem] overflow-hidden flex flex-col lg:flex-row shadow-2xl">
+      <div className="relative w-full max-w-7xl h-[92vh] glass-panel-primary rounded-[2.5rem] overflow-hidden flex flex-col lg:flex-row-reverse shadow-2xl">
         
         {/* Floating Close Button */}
         <button
@@ -83,10 +83,10 @@ export default function Viewer3DModal({ artifact, onClose, onOpenAR, lang }) {
           <X className="w-5 h-5" />
         </button>
 
-        {/* 3D Viewport Stage: Solid Pitch Black Background & Centered Model */}
-        <div className="relative flex-1 h-[48vh] lg:h-full bg-black flex items-center justify-center p-0 overflow-hidden">
+        {/* 3D Viewport Stage: Solid Pitch Black Background & Left-Centered Model */}
+        <div className="relative flex-1 h-[48vh] lg:h-full bg-black flex items-center justify-center p-4 sm:p-8 overflow-hidden">
           
-          {/* Live Google Model-Viewer Element: Centered with auto target and tight bounds */}
+          {/* Live Google Model-Viewer Element: Centered with auto target, tight bounds, and safe FOV */}
           <model-viewer
             ref={modelRef}
             src={artifact.model.glb}
@@ -104,10 +104,10 @@ export default function Viewer3DModal({ artifact, onClose, onOpenAR, lang }) {
             shadow-intensity="1.5"
             shadow-softness="0.8"
             exposure={exposure}
-            camera-orbit="0deg 75deg auto"
+            camera-orbit="0deg 75deg 115%"
             min-camera-orbit="auto auto 40%"
             max-camera-orbit="auto auto 300%"
-            field-of-view="28deg"
+            field-of-view="35deg"
             ar
             ar-modes="webxr scene-viewer quick-look"
             className="w-full h-full block cursor-grab active:cursor-grabbing"
