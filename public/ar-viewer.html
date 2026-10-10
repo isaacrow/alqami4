@@ -590,11 +590,13 @@
         exposure="1.25"
         shadow-intensity="1.5"
         shadow-softness="0.8"
-        camera-orbit="0deg 75deg auto"
-        field-of-view="28deg"
+        camera-orbit="0deg 75deg 115%"
+        field-of-view="35deg"
         ar
         ar-modes="webxr scene-viewer quick-look"
-      ></model-viewer>
+      >
+        <div slot="progress-bar" style="display: none;"></div>
+      </model-viewer>
 
       <!-- Centered Hint -->
       <div class="viewport-hint" id="viewport-hint">اسحب للتدوير 360°</div>

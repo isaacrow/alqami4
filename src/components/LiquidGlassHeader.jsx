@@ -35,15 +35,12 @@ export default function LiquidGlassHeader({
               />
             </div>
 
-            {/* Title & BIBFRAME OPAC Badge */}
+            {/* Title */}
             <div className="text-right rtl:text-right ltr:text-left">
               <div className="flex items-center gap-2">
                 <h1 className="text-lg sm:text-xl font-bold tracking-tight text-white font-amiri">
                   {isAr ? 'علقمي سبيشال' : 'ALQAMI SPATIAL'}
                 </h1>
-                <span className="px-2 py-0.5 text-[9px] sm:text-[10px] font-semibold tracking-wider uppercase rounded-full bg-white/15 text-white border border-white/30 font-mono">
-                  BIBFRAME OPAC
-                </span>
               </div>
               <p className="text-[11px] text-slate-300 font-light flex items-center gap-1.5">
                 <span className="inline-block w-1.5 h-1.5 rounded-full bg-white/80 animate-pulse"></span>
@@ -78,16 +75,6 @@ export default function LiquidGlassHeader({
 
         {/* Left Section: Action Pills */}
         <div className="flex items-center gap-2 w-full lg:w-auto justify-end flex-wrap">
-          
-          {/* Linked Data Universe Pill */}
-          <button
-            onClick={onOpenGraph}
-            title={isAr ? "مستكشف شبكة البيانات المترابطة" : "Explore Linked Data Graph Universe"}
-            className="glass-pill px-3.5 py-2 text-xs text-slate-200 flex items-center gap-1.5 hover:text-white hover:bg-white/15 transition-all cursor-pointer border-white/20"
-          >
-            <Layers className="w-3.5 h-3.5 text-white" />
-            <span className="text-xs">{isAr ? 'فضاء البيانات' : 'Semantic Graph'}</span>
-          </button>
 
           {/* Sound Ambience */}
           <button

@@ -82,7 +82,9 @@ export default function Ambient3DBackground() {
           rotation-per-second="1.5deg"
           camera-orbit="35deg 75deg auto"
           className="w-full h-full block"
-        />
+        >
+          <div slot="progress-bar" style={{ display: 'none' }}></div>
+        </model-viewer>
       </div>
     </div>
   );

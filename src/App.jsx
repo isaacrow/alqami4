@@ -182,35 +182,11 @@ export default function App() {
       {/* ══════════════════════════════════════════════════════════════
           FOOTER
          ══════════════════════════════════════════════════════════════ */}
-      <footer className="relative z-10 w-full border-t border-white/10 bg-black/75 backdrop-blur-xl py-6 px-4">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-400">
-          <div className="flex items-center gap-3 flex-wrap">
-            <span className="font-bold text-slate-200 font-amiri text-sm">
-              {isAr ? 'مشروع علقمي الرقمي' : 'Alqami Digital Heritage Project'}
-            </span>
-            <span>•</span>
-            <span>{isAr ? 'الفكرة والتصميم: اسحاق فالح' : 'Conceived & Designed by Ishaq Faleh'}</span>
-            <span>•</span>
-            <span className="text-white font-medium">{isAr ? 'العتبة العباسية المقدسة' : 'Al-Abbas Holy Shrine'}</span>
-          </div>
-
-          <div className="flex items-center gap-4">
-            <button 
-              onClick={() => setIsGraphOpen(true)}
-              className="hover:text-white transition-colors"
-            >
-              {isAr ? 'فضاء العلاقات الدلالية' : 'Semantic Graph'}
-            </button>
-            <a 
-              href="https://id.loc.gov/ontologies/bibframe.html" 
-              target="_blank" 
-              rel="noreferrer"
-              className="hover:text-white transition-colors flex items-center gap-1"
-            >
-              <span>Library of Congress BIBFRAME</span>
-              <ExternalLink className="w-3 h-3" />
-            </a>
-          </div>
+      <footer className="relative z-10 w-full border-t border-white/10 bg-black/85 backdrop-blur-xl py-6 px-4">
+        <div className="max-w-7xl mx-auto flex items-center justify-center text-center text-xs text-slate-300 font-medium">
+          <p className="tracking-wide">
+            {isAr ? 'تصميم وتطوير اسحاق فالح' : 'Designed & Developed by Isaac Faleh'}
+          </p>
         </div>
       </footer>
 

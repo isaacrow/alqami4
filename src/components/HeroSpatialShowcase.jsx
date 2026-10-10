@@ -179,7 +179,9 @@ export default function HeroSpatialShowcase({
               onPointerDown={() => { isInteractingRef.current = true; }}
               onPointerUp={() => { isInteractingRef.current = false; }}
               className="w-full h-full block cursor-grab active:cursor-grabbing"
-            />
+            >
+              <div slot="progress-bar" style={{ display: 'none' }}></div>
+            </model-viewer>
 
           </div>
 

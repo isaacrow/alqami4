@@ -71,7 +71,9 @@ export default function ArtifactCard({ artifact, onSelect, onOpenAR, lang }) {
           camera-orbit={artifact.model.cameraOrbit || "0deg 75deg auto"}
           field-of-view={artifact.model.fieldOfView || "30deg"}
           className="w-full h-full block"
-        />
+        >
+          <div slot="progress-bar" style={{ display: 'none' }}></div>
+        </model-viewer>
 
         {/* Top Floating Glass Badges */}
         <div className="absolute top-3 left-3 right-3 flex items-center justify-between pointer-events-none z-10">

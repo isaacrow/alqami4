@@ -113,6 +113,9 @@ export default function Viewer3DModal({ artifact, onClose, onOpenAR, lang }) {
             className="w-full h-full block cursor-grab active:cursor-grabbing"
             style={{ width: '100%', height: '100%', display: 'block', margin: 'auto' }}
           >
+            {/* Suppress built-in loading line */}
+            <div slot="progress-bar" style={{ display: 'none' }}></div>
+
             {/* Interactive 3D Hotspot Annotations */}
             {artifact.model.annotations?.map((anno, idx) => (
               <button
