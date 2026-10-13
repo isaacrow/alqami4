@@ -273,6 +273,121 @@ export const ARTIFACT_RECORDS = [
     }
   },
   {
+    id: "ALQ-MSS-006",
+    slug: "nahj-al-balagha",
+    title: {
+      ar: "مخطوط نهج البلاغة — الشريف الرضي (1022 هـ)",
+      en: "Nahj al-Balagha Manuscript — Al-Sharif al-Radi (1613 CE)"
+    },
+    category: "manuscripts",
+    categoryLabel: {
+      ar: "المخطوطات والنوادر",
+      en: "Manuscripts & Rare Books"
+    },
+    period: {
+      ar: "1022 هـ / 1613 م (العصر الصفوي)",
+      en: "1022 AH / 1613 CE (Safavid Era)"
+    },
+    creator: {
+      ar: "الشريف الرضي (ت 406 هـ) • الناسخ: شمس الدين علي الشيرازي الهراس",
+      en: "Al-Sharif al-Radi (d. 406 AH) • Scribe: Shams al-Din Ali al-Shirazi al-Harras",
+      uri: "https://alqami.net/agent/al-sharif-al-radi"
+    },
+    institution: {
+      ar: "مكتبة العتبة الرضوية المقدسة (1861) • مستودع علقمي الرقمي",
+      en: "Central Library of Astan Quds Razavi (1861) • Alqami Repository"
+    },
+    edition: {
+      ar: "نسخة نادرة مجدولة ومذهبة بالكامل أولها لوحة فنية بديعة",
+      en: "Rare fully illuminated and gold-ruled codex with decorative incipit"
+    },
+    responsibilityStatement: {
+      ar: "جمعه الشريف الرضي محمد بن الحسين الموسوي، نسخه شمس الدين علي الشيرازي الهراس.",
+      en: "Compiled by Al-Sharif al-Radi, transcribed by Shams al-Din Ali al-Shirazi."
+    },
+    model: {
+      glb: "./models/nahj_al_balagha.glb",
+      poster: "./images/manuscript.jpg",
+      scale: "1.0 1.0 1.0",
+      cameraOrbit: "25deg 70deg 110%",
+      fieldOfView: "32deg",
+      hasAr: true,
+      annotations: [
+        {
+          position: "0.0 0.12 0.05",
+          normal: "0 0 1",
+          title: { ar: "اللوحة الاستفتاحية المذهبة (أول النسخة)", en: "Illuminated Frontispiece" },
+          text: { ar: "بسمله اما بعد حمد الله الذي جعل الحمد ثمناً لنعمائه ومعاذاً من بلائه ووسيلاً الى جنانه...", en: "Opening invocation and praise in elegant Naskh script." }
+        },
+        {
+          position: "0.05 0.02 -0.05",
+          normal: "0 1 0",
+          title: { ar: "خاتمة الناسخ والتقييد (آخر النسخة)", en: "Colophon & Scribe Note" },
+          text: { ar: "الينا بعد الشذوذ وما توفيقنا.. شمس الدين علي الشيرازي الهراس غفر له (سنة 1022 هـ).", en: "Scribe colophon dated 1022 AH." }
+        }
+      ]
+    },
+    physical: {
+      dimensions: "ورق مجدول، مذهب، خط النسخ، عناوين بالمداد الأحمر (477 ورقة)",
+      extent: "477 ورقة",
+      material: { ar: "ورق مجدول، مذهب، حبر أسود، مداد أحمر، خط النسخ", en: "Illuminated gold-ruled paper, black ink, red ink, Naskh script" },
+      condition: { ar: "نادرة جداً، مجدولة ومذهبة، عليها آثار رطوبة تاريخية مع حفظ كامل النصوص", en: "Extremely rare, illuminated, historic moisture marks with full text integrity" },
+      binding: "الغلاف : تجليد إسلامي أصيل مزخرف ومحكم.",
+      decoration: "النسخة مجدولة بالذهب، وأولها لوحة فنية مذهبة بديعة، وعناوين الفصول بالمداد الأحمر.",
+      seals: "تحتوي على قيود تملكية وأختام مكتبة العتبة الرضوية المقدسة برقم 1861.",
+      catchwords: "مرتبة بنظام التعقيبات لضمان تسلسل الأوراق."
+    },
+    production: {
+      place: "مشهد المقدسة / إيران",
+      placeUri: "https://alqami.net/resource/place/mashhad",
+      scribe: "شمس الدين علي الشيرازي الهراس (1022 هـ)",
+      scribeUri: "https://alqami.net/resource/agent/al-shirazi",
+      date: "1022 هـ / 1613 م",
+      series: "تراث أهل البيت (ع) والحديث النبوي الشريف ؛ نوادر المخطوطات الرضوية"
+    },
+    notes: {
+      incipit: "بسمله اما بعد حمد الله الذي جعل الحمد ثمناً لنعمائه ومعاذاً من بلائه ووسيلاً الى جنانه وسبباً لزيادة احسانه والصلوة على رسوله..",
+      explicit: "الينا بعد الشذوذ وما توفيقنا.. شمس الدين علي الشيرازي الهراس غفرله.",
+      dhariahCitation: "الذريعة إلى تصانيف الشيعة، الجزء 24، نهج البلاغة وشروحه ومخطوطاته.",
+      holdingNote: "مكتبة العتبة الرضوية المقدسة، مشهد، إيران، نسخة رقم 1861.",
+      systemIdentifiers: ["MS-1861-NAHJ", "ART-006"]
+    },
+    adminMetadata: {
+      adminUri: "https://alqami.net/admin/nahj_al_balagha",
+      source: "مكتبة العتبة الرضوية المقدسة • مستودع علقمي",
+      generator: "Alqami Linked Data Cataloging Engine v2.0",
+      creationDate: "2026-10-13",
+      descriptionConventions: "RDA / BIBFRAME 2.0",
+      catalogingLanguage: "ara",
+      resourceLanguage: "ara"
+    },
+    bibframe: {
+      workUri: "https://alqami.net/work/nahj_al_balagha",
+      expressionUri: "https://alqami.net/expression/nahj_al_balagha_1022",
+      instanceUri: "https://alqami.net/instance/nahj_al_balagha",
+      itemUri: "https://alqami.net/item/nahj_al_balagha_ms1861",
+      classification: {
+        lcc: "BP193.1.A2 A4 1613",
+        ddc: "297.124"
+      },
+      genreForm: [
+        { uri: "http://id.loc.gov/authorities/genreForms/gf2014026139", label: "مخطوطات إسلامية (Manuscripts)" }
+      ],
+      subjects: [
+        { uri: "http://id.loc.gov/authorities/subjects/sh85068499", label: "أهل البيت (ع) والحديث النبوي (Ahl al-Bayt)" },
+        { uri: "http://id.loc.gov/authorities/subjects/sh85068470", label: "خطب ومواعظ وبلاغة (Sermons & Islamic Eloquence)" }
+      ]
+    },
+    backendRdfFile: "nahj_al_balagha.ttl",
+    backendTtlFile: "nahj_al_balagha.ttl",
+    rawBackendRdf: backendRdf["nahj_al_balagha.ttl"] || "",
+    rawBackendTtl: backendRdf["nahj_al_balagha.ttl"] || "",
+    summary: {
+      ar: "نسخة مجدولة ومذهبة نادرة من كتاب نهج البلاغة للشريف الرضي بخط شمس الدين علي الشيرازي الهراس (1022 هـ / 1613 م)، أولها لوحة استفتاحية فنية بديعة، محفوظة في مكتبة العتبة الرضوية المقدسة برقم 1861 في 477 ورقة.",
+      en: "Rare fully illuminated and gold-ruled manuscript of Nahj al-Balagha (Peak of Eloquence), compiled by al-Sharif al-Radi. Transcribed in Naskh script by Shams al-Din Ali al-Shirazi al-Harras in 1022 AH (1613 CE). 477 folios held at Astan Quds Razavi Library (MS 1861)."
+    }
+  },
+  {
     id: "ALQ-HLM-004",
     slug: "old-islamic-helmet",
     title: {
