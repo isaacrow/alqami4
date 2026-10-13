@@ -4,13 +4,33 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="./images/logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>علقمي سبيشال | ALQAMI SPATIAL — BIBFRAME 2.0 3D & AR Linked Data OPAC</title>
+    <title>علقمي | ALQAMI — BIBFRAME 2.0 3D & AR Linked Data OPAC</title>
+
+    <script>
+      (function() {
+        try {
+          var params = new URLSearchParams(window.location.search);
+          if (!params.has('desktop')) {
+            var ua = navigator.userAgent || navigator.vendor || window.opera || '';
+            var isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua);
+            var isSmallTouch = window.innerWidth <= 768 && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
+            if (isMobileUA || isSmallTouch) {
+              var pathname = window.location.pathname;
+              if (!pathname.endsWith('/')) {
+                pathname += '/';
+              }
+              window.location.replace(pathname + 'mobile/' + window.location.search + window.location.hash);
+            }
+          }
+        } catch(e) {}
+      })();
+    </script>
 
     <!-- Google Fonts: Amiri, Cairo, Tajawal, Outfit -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;600;700;900&family=Outfit:wght@300;400;500;600;700;800&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    <script type="module" crossorigin src="./assets/index-C23MYjWh.js"></script>
+    <script type="module" crossorigin src="./assets/index-BRRyRDNZ.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-6rCqKtf0.css">
   </head>
   <body class="bg-black text-white selection:bg-white/20 selection:text-white antialiased overflow-x-hidden min-h-screen">
