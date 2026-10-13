@@ -18,7 +18,16 @@ export default function ArQrModal({ artifact, onClose, lang }) {
   const [qrDataUrl, setQrDataUrl] = useState('');
   const [copied, setCopied] = useState(false);
 
-  // Generate the mobile AR URL targeting ar-viewer.html with artifact id
+  // Extract model slug matching alqami3 dock buttons (e.g. "Zulfiqar_Sword", "nahj_al_balagha", etc.)
+  const getModelSlug = () => {
+    if (artifact.model?.glb) {
+      const parts = artifact.model.glb.split('/');
+      return parts[parts.length - 1].replace(/\.glb$/i, '');
+    }
+    return artifact.id;
+  };
+
+  // Generate the mobile AR URL targeting /mobile/ with exact model
   const getArTargetUrl = () => {
     if (typeof window === 'undefined') return '';
     // If running on GitHub Pages (e.g. isaacrow.github.io/alqami4/) or any hosted subpath
@@ -34,7 +43,8 @@ export default function ArQrModal({ artifact, onClose, lang }) {
       base = `${protocol}//${hostIp}${portPart}`;
     }
     const cleanBase = base.replace(/\/+$/, '');
-    return `${cleanBase}/mobile/?model=${encodeURIComponent(artifact.id)}`;
+    const modelSlug = getModelSlug();
+    return `${cleanBase}/mobile/?model=${encodeURIComponent(modelSlug)}&id=${encodeURIComponent(artifact.id)}`;
   };
 
   const arTargetUrl = getArTargetUrl();
