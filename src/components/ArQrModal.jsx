@@ -19,8 +19,25 @@ export default function ArQrModal({ artifact, onClose, lang }) {
   const [copied, setCopied] = useState(false);
 
   // Generate the mobile AR URL targeting ar-viewer.html with artifact id
-  const protocol = typeof window !== 'undefined' ? window.location.protocol : 'http:';
-  const arTargetUrl = `${protocol}//${hostIp}:${port}/ar-viewer.html?id=${encodeURIComponent(artifact.id)}&model=${encodeURIComponent(artifact.model.glb)}&title=${encodeURIComponent(artifact.title[lang])}`;
+  const getArTargetUrl = () => {
+    if (typeof window === 'undefined') return '';
+    // If running on GitHub Pages (e.g. isaacrow.github.io/alqami4/) or any hosted subpath
+    const isHosted = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
+    let base = '';
+    if (isHosted) {
+      // Keep exact origin and pathname directory
+      const pathDir = window.location.pathname.replace(/\/[^/]*$/, '');
+      base = `${window.location.origin}${pathDir}`;
+    } else {
+      const protocol = window.location.protocol;
+      const portPart = port ? `:${port}` : '';
+      base = `${protocol}//${hostIp}${portPart}`;
+    }
+    const cleanBase = base.replace(/\/+$/, '');
+    return `${cleanBase}/ar-viewer.html?id=${encodeURIComponent(artifact.id)}&model=${encodeURIComponent(artifact.model.glb)}&title=${encodeURIComponent(artifact.title[lang])}`;
+  };
+
+  const arTargetUrl = getArTargetUrl();
 
   useEffect(() => {
     QRCode.toDataURL(arTargetUrl, {

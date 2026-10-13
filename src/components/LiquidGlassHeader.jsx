@@ -39,7 +39,7 @@ export default function LiquidGlassHeader({
             <div className="text-right rtl:text-right ltr:text-left">
               <div className="flex items-center gap-2">
                 <h1 className="text-lg sm:text-xl font-bold tracking-tight text-white font-amiri">
-                  {isAr ? 'علقمي سبيشال' : 'ALQAMI SPATIAL'}
+                  {isAr ? 'علقمي' : 'ALQAMI'}
                 </h1>
               </div>
               <p className="text-[11px] text-slate-300 font-light flex items-center gap-1.5">
