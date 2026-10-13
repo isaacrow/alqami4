@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
@@ -179,6 +179,18 @@
       outline: none;
       --poster-color: #000000;
       background-color: #000000;
+      direction: ltr !important;
+      --progress-bar-color: transparent !important;
+      --progress-bar-height: 0px !important;
+      --progress-mask: transparent !important;
+    }
+
+    model-viewer::part(default-progress-bar),
+    model-viewer::part(default-progress-mask) {
+      display: none !important;
+      opacity: 0 !important;
+      visibility: hidden !important;
+      height: 0px !important;
     }
 
     /* AR Floating Launch Button */
