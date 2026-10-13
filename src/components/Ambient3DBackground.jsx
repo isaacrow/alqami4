@@ -18,6 +18,27 @@ export default function Ambient3DBackground() {
 
   // Global mouse tracking: much slower, stately, majestic drift
   useEffect(() => {
+    // Glacial LERP interpolation loop (0.008 factor = ultra slow).
+    // The loop sleeps once the camera has settled so the GPU is idle when the mouse is still.
+    const animate = () => {
+      const cur = currentOrbitRef.current;
+      const tgt = targetOrbitRef.current;
+      const dTheta = tgt.theta - cur.theta;
+      const dPhi = tgt.phi - cur.phi;
+      cur.theta += dTheta * 0.008;
+      cur.phi += dPhi * 0.008;
+
+      if (viewerRef.current) {
+        viewerRef.current.cameraOrbit = `${cur.theta.toFixed(2)}deg ${cur.phi.toFixed(2)}deg auto`;
+      }
+
+      if (Math.abs(dTheta) > 0.05 || Math.abs(dPhi) > 0.05) {
+        rafRef.current = requestAnimationFrame(animate);
+      } else {
+        rafRef.current = null;
+      }
+    };
+
     const handleMouseMove = (e) => {
       const nx = (e.clientX / window.innerWidth - 0.5) * 2; // -1 to 1
       const ny = (e.clientY / window.innerHeight - 0.5) * 2; // -1 to 1
@@ -27,29 +48,15 @@ export default function Ambient3DBackground() {
         theta: 35 + nx * 14,
         phi: Math.max(60, Math.min(90, 75 + ny * 8))
       };
+      if (!rafRef.current) rafRef.current = requestAnimationFrame(animate);
     };
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
 
-    // Glacial LERP interpolation loop (0.008 factor = ultra slow)
-    const animate = () => {
-      const cur = currentOrbitRef.current;
-      const tgt = targetOrbitRef.current;
-      cur.theta += (tgt.theta - cur.theta) * 0.008;
-      cur.phi += (tgt.phi - cur.phi) * 0.008;
-
-      if (viewerRef.current) {
-        viewerRef.current.cameraOrbit = `${cur.theta.toFixed(1)}deg ${cur.phi.toFixed(1)}deg auto`;
-      }
-
-      rafRef.current = requestAnimationFrame(animate);
-    };
-
-    rafRef.current = requestAnimationFrame(animate);
-
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
     };
   }, []);
 

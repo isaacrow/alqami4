@@ -63,7 +63,7 @@ export default function ArtifactCard({ artifact, onSelect, onOpenAR, lang }) {
           reveal="auto"
           camera-target="auto auto auto"
           bounds="tight"
-          auto-rotate
+          auto-rotate={isHovered ? true : undefined}
           rotation-per-second="14deg"
           shadow-intensity="1.5"
           shadow-softness="0.8"

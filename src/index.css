@@ -219,6 +219,10 @@ model-viewer {
   height: 100%;
   outline: none;
   background-color: transparent;
+  /* Critical: the page is RTL. model-viewer's internal canvas is sized to the
+     largest viewer on the page and relies on LTR overflow to show its top-left
+     region. Without this, the rendered model is clipped out of view. */
+  direction: ltr;
 }
 
 model-viewer::part(default-ar-button) {

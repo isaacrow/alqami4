@@ -35,8 +35,25 @@ export default function HeroSpatialShowcase({
     setCurrentIndex((prev) => (prev - 1 + records.length) % records.length);
   };
 
-  // Smooth Mouse Move Tracking on the 3D Model
+  // Smooth Mouse Move Tracking on the 3D Model (loop sleeps once settled)
   useEffect(() => {
+    const animate = () => {
+      const cur = currentOrbitRef.current;
+      const tgt = targetOrbitRef.current;
+      const dTheta = tgt.theta - cur.theta;
+      const dPhi = tgt.phi - cur.phi;
+      if (!isInteractingRef.current && modelViewerRef.current) {
+        cur.theta += dTheta * 0.06;
+        cur.phi += dPhi * 0.06;
+        modelViewerRef.current.cameraOrbit = `${cur.theta.toFixed(2)}deg ${cur.phi.toFixed(2)}deg 115%`;
+      }
+      if (!isInteractingRef.current && (Math.abs(dTheta) > 0.05 || Math.abs(dPhi) > 0.05)) {
+        rafRef.current = requestAnimationFrame(animate);
+      } else {
+        rafRef.current = null;
+      }
+    };
+
     const handleMouseMove = (e) => {
       if (isInteractingRef.current) return;
       const nx = (e.clientX / window.innerWidth - 0.5) * 2; // -1 to 1
@@ -47,26 +64,15 @@ export default function HeroSpatialShowcase({
         theta: nx * 30,
         phi: Math.max(55, Math.min(95, 75 + ny * 15))
       };
+      if (!rafRef.current) rafRef.current = requestAnimationFrame(animate);
     };
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
 
-    const animate = () => {
-      if (!isInteractingRef.current && modelViewerRef.current) {
-        const cur = currentOrbitRef.current;
-        const tgt = targetOrbitRef.current;
-        cur.theta += (tgt.theta - cur.theta) * 0.06;
-        cur.phi += (tgt.phi - cur.phi) * 0.06;
-        modelViewerRef.current.cameraOrbit = `${cur.theta.toFixed(1)}deg ${cur.phi.toFixed(1)}deg 115%`;
-      }
-      rafRef.current = requestAnimationFrame(animate);
-    };
-
-    rafRef.current = requestAnimationFrame(animate);
-
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
     };
   }, []);
 
