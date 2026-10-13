@@ -1,5 +1,5 @@
 import React from 'react';
-import { Globe, Volume2, VolumeX, Database, Search, Layers, X } from 'lucide-react';
+import { Globe, Volume2, VolumeX, Database, Search, Layers, X, Smartphone } from 'lucide-react';
 
 export default function LiquidGlassHeader({ 
   lang, 
@@ -103,6 +103,16 @@ export default function LiquidGlassHeader({
             <span className="font-medium">Moon DB</span>
             <Database className="w-3 h-3 text-white/80" />
           </div>
+
+          {/* Mobile AR View Link */}
+          <a
+            href="./mobile/"
+            title={isAr ? "الانتقال إلى واجهة الجوال والواقع المعزز" : "Open Mobile AR & Vision Interface"}
+            className="glass-pill px-3 py-1.5 text-xs font-medium text-slate-200 hover:text-white hover:bg-white/15 transition-all cursor-pointer border-white/20 flex items-center gap-1.5"
+          >
+            <Smartphone className="w-3.5 h-3.5 text-white" />
+            <span>{isAr ? 'نسخة الجوال' : 'Mobile AR'}</span>
+          </a>
 
         </div>
 

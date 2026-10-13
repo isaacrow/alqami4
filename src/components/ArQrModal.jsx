@@ -34,7 +34,7 @@ export default function ArQrModal({ artifact, onClose, lang }) {
       base = `${protocol}//${hostIp}${portPart}`;
     }
     const cleanBase = base.replace(/\/+$/, '');
-    return `${cleanBase}/ar-viewer.html?id=${encodeURIComponent(artifact.id)}&model=${encodeURIComponent(artifact.model.glb)}&title=${encodeURIComponent(artifact.title[lang])}`;
+    return `${cleanBase}/mobile/?model=${encodeURIComponent(artifact.id)}`;
   };
 
   const arTargetUrl = getArTargetUrl();
