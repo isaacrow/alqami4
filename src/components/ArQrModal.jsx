@@ -17,6 +17,7 @@ export default function ArQrModal({ artifact, onClose, lang }) {
   const [showConfig, setShowConfig] = useState(false);
   const [qrDataUrl, setQrDataUrl] = useState('');
   const [copied, setCopied] = useState(false);
+  const [openMode, setOpenMode] = useState('scan'); // 'scan' (default) or '3d'
 
   // Extract model slug matching alqami3 dock buttons (e.g. "Zulfiqar_Sword", "nahj_al_balagha", etc.)
   const getModelSlug = () => {
@@ -27,7 +28,7 @@ export default function ArQrModal({ artifact, onClose, lang }) {
     return artifact.id;
   };
 
-  // Generate the mobile AR URL targeting /mobile/ with exact model
+  // Generate the mobile AR URL targeting /mobile/ with exact model & mode
   const getArTargetUrl = () => {
     if (typeof window === 'undefined') return '';
     // If running on GitHub Pages (e.g. isaacrow.github.io/alqami4/) or any hosted subpath
@@ -44,7 +45,8 @@ export default function ArQrModal({ artifact, onClose, lang }) {
     }
     const cleanBase = base.replace(/\/+$/, '');
     const modelSlug = getModelSlug();
-    return `${cleanBase}/mobile/?model=${encodeURIComponent(modelSlug)}&id=${encodeURIComponent(artifact.id)}`;
+    const modeQuery = openMode === 'scan' ? 'mode=scan&' : 'mode=3d&';
+    return `${cleanBase}/mobile/?${modeQuery}model=${encodeURIComponent(modelSlug)}&id=${encodeURIComponent(artifact.id)}`;
   };
 
   const arTargetUrl = getArTargetUrl();
@@ -62,7 +64,7 @@ export default function ArQrModal({ artifact, onClose, lang }) {
     }).catch(err => {
       console.error("QR Code error:", err);
     });
-  }, [arTargetUrl]);
+  }, [arTargetUrl, openMode]);
 
   const handleCopyLink = () => {
     navigator.clipboard.writeText(arTargetUrl);
@@ -90,11 +92,39 @@ export default function ArQrModal({ artifact, onClose, lang }) {
         <h3 className="text-xl font-bold text-white mb-1 font-amiri">
           {isAr ? 'تجربة الواقع المعزز (AR على الهاتف)' : 'Augmented Reality on Mobile'}
         </h3>
-        <p className="text-xs text-slate-300/80 mb-4 font-light">
-          {isAr 
-            ? 'امسح الرمز بكاميرا هاتفك (آيفون أو أندرويد) لعرض هذه القطعة في غرفتك بالحجم الطبيعي'
-            : 'Scan with your smartphone camera to view this authentic 3D model in your physical space'}
+        <p className="text-xs text-slate-300/80 mb-3 font-light">
+          {openMode === 'scan'
+            ? (isAr 
+                ? 'امسح الرمز بكاميرا هاتفك ليفتح مباشرة وضع مسح الكاميرا، ألعاب الواقع المعزز، ولوحة الرسم!' 
+                : 'Scan with your smartphone camera to open Camera Scan Mode, AR Interactive Games, and the Drawing Studio!')
+            : (isAr 
+                ? 'امسح الرمز بكاميرا هاتفك لعرض النموذج ثلاثي الأبعاد مباشرة بالحجم الطبيعي' 
+                : 'Scan with your smartphone camera to view this 3D model directly in your space')}
         </p>
+
+        {/* Scan Mode vs 3D Mode Toggle */}
+        <div className="flex items-center justify-center p-1 rounded-2xl bg-white/10 border border-white/20 mb-4 max-w-xs mx-auto">
+          <button
+            onClick={() => setOpenMode('scan')}
+            className={`flex-1 py-1.5 px-3 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+              openMode === 'scan'
+                ? 'bg-amber-400 text-black shadow-lg font-bold'
+                : 'text-slate-300 hover:text-white'
+            }`}
+          >
+            {isAr ? 'مسح الكاميرا وألعاب AR' : 'AR Camera & Games'}
+          </button>
+          <button
+            onClick={() => setOpenMode('3d')}
+            className={`flex-1 py-1.5 px-3 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+              openMode === '3d'
+                ? 'bg-white text-black shadow-lg font-bold'
+                : 'text-slate-300 hover:text-white'
+            }`}
+          >
+            {isAr ? 'معاينة 3D' : '3D Viewer'}
+          </button>
+        </div>
 
         {/* QR Code Canvas */}
         <div className="relative p-4 rounded-3xl bg-white mx-auto w-fit shadow-2xl mb-4 group">
