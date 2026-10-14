@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import QRCode from 'qrcode';
-import { X, Smartphone, Check, Copy, Settings2 } from 'lucide-react';
+import { X, Smartphone, Check, Copy, Settings2, Camera, Box } from 'lucide-react';
 
 export default function ArQrModal({ artifact, onClose, lang }) {
   const isAr = lang === 'ar';
+  const [qrMode, setQrMode] = useState('scan');
   
   // Default to local LAN IP for phones on Wi-Fi
   const defaultHost = (typeof window !== 'undefined' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1')
@@ -17,7 +18,6 @@ export default function ArQrModal({ artifact, onClose, lang }) {
   const [showConfig, setShowConfig] = useState(false);
   const [qrDataUrl, setQrDataUrl] = useState('');
   const [copied, setCopied] = useState(false);
-  const [openMode, setOpenMode] = useState('scan'); // 'scan' (default) or '3d'
 
   // Extract model slug matching alqami3 dock buttons (e.g. "Zulfiqar_Sword", "nahj_al_balagha", etc.)
   const getModelSlug = () => {
@@ -28,23 +28,16 @@ export default function ArQrModal({ artifact, onClose, lang }) {
     return artifact.id;
   };
 
-  // Generate the mobile AR URL targeting /mobile/ with exact model & mode
+  // Generate the mobile AR URL targeting /mobile/ with exact model and mode
   const getArTargetUrl = () => {
     if (typeof window === 'undefined') return '';
+    // If running on GitHub Pages (e.g. isaacrow.github.io/alqami4/) or any hosted subpath
     const isHosted = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
     let base = '';
     if (isHosted) {
-      if (window.location.hostname.endsWith('github.io')) {
-        const repoName = window.location.pathname.split('/').filter(Boolean)[0] || 'alqami4';
-        base = `${window.location.origin}/${repoName}`;
-      } else {
-        let path = window.location.pathname;
-        if (/\.[a-zA-Z0-9]+$/.test(path)) {
-          path = path.replace(/\/[^/]*$/, '');
-        }
-        path = path.replace(/\/mobile\/?$/, '');
-        base = `${window.location.origin}${path}`;
-      }
+      // Keep exact origin and pathname directory
+      const pathDir = window.location.pathname.replace(/\/[^/]*$/, '');
+      base = `${window.location.origin}${pathDir}`;
     } else {
       const protocol = window.location.protocol;
       const portPart = port ? `:${port}` : '';
@@ -52,8 +45,8 @@ export default function ArQrModal({ artifact, onClose, lang }) {
     }
     const cleanBase = base.replace(/\/+$/, '');
     const modelSlug = getModelSlug();
-    const modeQuery = openMode === 'scan' ? 'mode=scan&' : 'mode=3d&';
-    return `${cleanBase}/mobile/?${modeQuery}model=${encodeURIComponent(modelSlug)}&id=${encodeURIComponent(artifact.id)}`;
+    const modeParam = qrMode === 'scan' ? '&mode=scan' : '&mode=3d';
+    return `${cleanBase}/mobile/?model=${encodeURIComponent(modelSlug)}&id=${encodeURIComponent(artifact.id)}${modeParam}`;
   };
 
   const arTargetUrl = getArTargetUrl();
@@ -71,7 +64,7 @@ export default function ArQrModal({ artifact, onClose, lang }) {
     }).catch(err => {
       console.error("QR Code error:", err);
     });
-  }, [arTargetUrl, openMode]);
+  }, [arTargetUrl, qrMode]);
 
   const handleCopyLink = () => {
     navigator.clipboard.writeText(arTargetUrl);
@@ -99,39 +92,45 @@ export default function ArQrModal({ artifact, onClose, lang }) {
         <h3 className="text-xl font-bold text-white mb-1 font-amiri">
           {isAr ? 'تجربة الواقع المعزز (AR على الهاتف)' : 'Augmented Reality on Mobile'}
         </h3>
-        <p className="text-xs text-slate-300/80 mb-3 font-light">
-          {openMode === 'scan'
-            ? (isAr 
-                ? 'امسح الرمز بكاميرا هاتفك ليفتح مباشرة وضع مسح الكاميرا، ألعاب الواقع المعزز، ولوحة الرسم!' 
-                : 'Scan with your smartphone camera to open Camera Scan Mode, AR Interactive Games, and the Drawing Studio!')
-            : (isAr 
-                ? 'امسح الرمز بكاميرا هاتفك لعرض النموذج ثلاثي الأبعاد مباشرة بالحجم الطبيعي' 
-                : 'Scan with your smartphone camera to view this 3D model directly in your space')}
-        </p>
 
-        {/* Scan Mode vs 3D Mode Toggle */}
-        <div className="flex items-center justify-center p-1 rounded-2xl bg-white/10 border border-white/20 mb-4 max-w-xs mx-auto">
+        {/* Mode Switcher Tabs */}
+        <div className="flex items-center justify-center gap-1.5 p-1 bg-white/10 rounded-2xl my-3 border border-white/20">
           <button
-            onClick={() => setOpenMode('scan')}
-            className={`flex-1 py-1.5 px-3 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
-              openMode === 'scan'
-                ? 'bg-amber-400 text-black shadow-lg font-bold'
-                : 'text-slate-300 hover:text-white'
+            type="button"
+            onClick={() => setQrMode('scan')}
+            className={`flex-1 py-2 px-2.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+              qrMode === 'scan' 
+                ? 'bg-white text-black shadow-lg' 
+                : 'text-slate-300 hover:text-white hover:bg-white/10'
             }`}
           >
-            {isAr ? 'مسح الكاميرا وألعاب AR' : 'AR Camera & Games'}
+            <Camera className="w-3.5 h-3.5" />
+            <span>{isAr ? 'فتح المسح مباشرة (Scan Mode)' : 'Direct Scan Mode'}</span>
           </button>
+
           <button
-            onClick={() => setOpenMode('3d')}
-            className={`flex-1 py-1.5 px-3 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
-              openMode === '3d'
-                ? 'bg-white text-black shadow-lg font-bold'
-                : 'text-slate-300 hover:text-white'
+            type="button"
+            onClick={() => setQrMode('3d')}
+            className={`flex-1 py-2 px-2.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+              qrMode === '3d' 
+                ? 'bg-white text-black shadow-lg' 
+                : 'text-slate-300 hover:text-white hover:bg-white/10'
             }`}
           >
-            {isAr ? 'معاينة 3D' : '3D Viewer'}
+            <Box className="w-3.5 h-3.5" />
+            <span>{isAr ? 'استعراض 3D' : '3D Viewer'}</span>
           </button>
         </div>
+
+        <p className="text-xs text-slate-300/80 mb-4 font-light min-h-[32px] flex items-center justify-center">
+          {qrMode === 'scan'
+            ? (isAr 
+                ? 'امسح الرمز بكاميرا هاتفك لفتح وضع مسح الكاميرا (Scan Mode) مباشرة على هاتفك' 
+                : 'Scan with your phone camera to open AR Scan Mode directly on your device')
+            : (isAr 
+                ? 'امسح الرمز لفتح عارض النماذج ثلاثية الأبعاد والبيانات الوصفية على الهاتف' 
+                : 'Scan to explore the 3D model and metadata on your smartphone')}
+        </p>
 
         {/* QR Code Canvas */}
         <div className="relative p-4 rounded-3xl bg-white mx-auto w-fit shadow-2xl mb-4 group">
@@ -189,21 +188,6 @@ export default function ArQrModal({ artifact, onClose, lang }) {
           {copied ? <Check className="w-4 h-4 text-emerald-600" /> : <Copy className="w-4 h-4 text-black" />}
           <span>{copied ? (isAr ? 'تم نسخ الرابط!' : 'Link Copied!') : (isAr ? 'نسخ رابط التجربة للهاتف' : 'Copy Mobile AR Link')}</span>
         </button>
-
-        {/* Open Targets Link */}
-        <a
-          href={
-            typeof window !== 'undefined' && window.location.hostname.endsWith('github.io')
-              ? `/${window.location.pathname.split('/').filter(Boolean)[0] || 'alqami4'}/targets.html`
-              : './targets.html'
-          }
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-2 w-full glass-pill py-2 text-xs font-semibold text-amber-300 hover:text-white bg-amber-500/10 border border-amber-400/30 flex items-center justify-center gap-1.5 transition-all"
-        >
-          <span>{isAr ? 'عرض بطاقات المسح على الشاشة للعب' : 'View Scannable Target Cards'}</span>
-          <span>→</span>
-        </a>
 
       </div>
     </div>

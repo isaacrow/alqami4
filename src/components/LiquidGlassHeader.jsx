@@ -104,29 +104,9 @@ export default function LiquidGlassHeader({
             <Database className="w-3 h-3 text-white/80" />
           </div>
 
-          {/* AR Targets Link */}
-          <a
-            href={
-              typeof window !== 'undefined' && window.location.hostname.endsWith('github.io')
-                ? `/${window.location.pathname.split('/').filter(Boolean)[0] || 'alqami4'}/targets.html`
-                : './targets.html'
-            }
-            target="_blank"
-            rel="noopener noreferrer"
-            title={isAr ? "عرض بطاقات المسح للواقع المعزز وطباعتها للعب" : "View & Print AR Scannable Targets"}
-            className="glass-pill px-3 py-1.5 text-xs font-medium text-amber-300 hover:text-white hover:bg-white/15 transition-all cursor-pointer border-amber-400/30 flex items-center gap-1.5"
-          >
-            <Layers className="w-3.5 h-3.5 text-amber-300" />
-            <span>{isAr ? 'بطاقات المسح' : 'AR Targets'}</span>
-          </a>
-
           {/* Mobile AR View Link */}
           <a
-            href={
-              typeof window !== 'undefined' && window.location.hostname.endsWith('github.io')
-                ? `/${window.location.pathname.split('/').filter(Boolean)[0] || 'alqami4'}/mobile/`
-                : './mobile/'
-            }
+            href="./mobile/"
             title={isAr ? "الانتقال إلى واجهة الجوال والواقع المعزز" : "Open Mobile AR & Vision Interface"}
             className="glass-pill px-3 py-1.5 text-xs font-medium text-slate-200 hover:text-white hover:bg-white/15 transition-all cursor-pointer border-white/20 flex items-center gap-1.5"
           >
