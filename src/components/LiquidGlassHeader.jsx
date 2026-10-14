@@ -106,7 +106,11 @@ export default function LiquidGlassHeader({
 
           {/* Mobile AR View Link */}
           <a
-            href="./mobile/"
+            href={
+              typeof window !== 'undefined' && window.location.hostname.endsWith('github.io')
+                ? `/${window.location.pathname.split('/').filter(Boolean)[0] || 'alqami4'}/mobile/`
+                : './mobile/'
+            }
             title={isAr ? "الانتقال إلى واجهة الجوال والواقع المعزز" : "Open Mobile AR & Vision Interface"}
             className="glass-pill px-3 py-1.5 text-xs font-medium text-slate-200 hover:text-white hover:bg-white/15 transition-all cursor-pointer border-white/20 flex items-center gap-1.5"
           >

@@ -31,13 +31,20 @@ export default function ArQrModal({ artifact, onClose, lang }) {
   // Generate the mobile AR URL targeting /mobile/ with exact model & mode
   const getArTargetUrl = () => {
     if (typeof window === 'undefined') return '';
-    // If running on GitHub Pages (e.g. isaacrow.github.io/alqami4/) or any hosted subpath
     const isHosted = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
     let base = '';
     if (isHosted) {
-      // Keep exact origin and pathname directory
-      const pathDir = window.location.pathname.replace(/\/[^/]*$/, '');
-      base = `${window.location.origin}${pathDir}`;
+      if (window.location.hostname.endsWith('github.io')) {
+        const repoName = window.location.pathname.split('/').filter(Boolean)[0] || 'alqami4';
+        base = `${window.location.origin}/${repoName}`;
+      } else {
+        let path = window.location.pathname;
+        if (/\.[a-zA-Z0-9]+$/.test(path)) {
+          path = path.replace(/\/[^/]*$/, '');
+        }
+        path = path.replace(/\/mobile\/?$/, '');
+        base = `${window.location.origin}${path}`;
+      }
     } else {
       const protocol = window.location.protocol;
       const portPart = port ? `:${port}` : '';

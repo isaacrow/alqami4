@@ -16,7 +16,9 @@
             var isSmallTouch = window.innerWidth <= 768 && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
             if (isMobileUA || isSmallTouch) {
               var pathname = window.location.pathname;
-              if (!pathname.endsWith('/')) {
+              if (/\.[a-zA-Z0-9]+$/.test(pathname)) {
+                pathname = pathname.replace(/\/[^/]*$/, '/');
+              } else if (!pathname.endsWith('/')) {
                 pathname += '/';
               }
               window.location.replace(pathname + 'mobile/' + window.location.search + window.location.hash);
