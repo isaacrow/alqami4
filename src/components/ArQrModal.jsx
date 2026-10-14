@@ -190,6 +190,21 @@ export default function ArQrModal({ artifact, onClose, lang }) {
           <span>{copied ? (isAr ? 'تم نسخ الرابط!' : 'Link Copied!') : (isAr ? 'نسخ رابط التجربة للهاتف' : 'Copy Mobile AR Link')}</span>
         </button>
 
+        {/* Open Targets Link */}
+        <a
+          href={
+            typeof window !== 'undefined' && window.location.hostname.endsWith('github.io')
+              ? `/${window.location.pathname.split('/').filter(Boolean)[0] || 'alqami4'}/targets.html`
+              : './targets.html'
+          }
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-2 w-full glass-pill py-2 text-xs font-semibold text-amber-300 hover:text-white bg-amber-500/10 border border-amber-400/30 flex items-center justify-center gap-1.5 transition-all"
+        >
+          <span>{isAr ? 'عرض بطاقات المسح على الشاشة للعب' : 'View Scannable Target Cards'}</span>
+          <span>→</span>
+        </a>
+
       </div>
     </div>
   );

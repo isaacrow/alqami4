@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>بطاقات المسح للواقع المعزز — علقمي | ALQAMI AR Targets</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;700;900&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: #080a12;
+      color: #f1f5f9;
+      font-family: 'Cairo', 'Outfit', sans-serif;
+      padding: 24px 16px 80px;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+    .header {
+      max-width: 1000px;
+      margin: 0 auto 32px;
+      text-align: center;
+      background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.15), transparent 70%);
+      padding: 32px 20px;
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(16px);
+    }
+    .title {
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, #ffffff 40%, #a5b4fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .subtitle {
+      font-size: 15px;
+      color: #94a3b8;
+      max-width: 650px;
+      margin: 0 auto 16px;
+    }
+    .instructions-box {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(59, 130, 246, 0.12);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      padding: 10px 20px;
+      border-radius: 999px;
+      font-size: 13px;
+      color: #93c5fd;
+    }
+    .grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+    .card {
+      background: rgba(18, 22, 36, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(99, 102, 241, 0.4);
+    }
+    .card-img-wrapper {
+      width: 100%;
+      height: 260px;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .card-img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    .card:hover .card-img-wrapper img {
+      transform: scale(1.03);
+    }
+    .card-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(0, 0, 0, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(8px);
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #38bdf8;
+    }
+    .card-content {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+    .card-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: #ffffff;
+    }
+    .card-desc {
+      font-size: 13px;
+      color: #94a3b8;
+      margin-bottom: 16px;
+      flex-grow: 1;
+    }
+    .card-trigger {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px dashed rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 12px;
+      color: #cbd5e1;
+      margin-bottom: 14px;
+    }
+    .card-trigger strong {
+      color: #34d399;
+    }
+    .card-actions {
+      display: flex;
+      gap: 8px;
+    }
+    .btn {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: #3b82f6;
+      color: #ffffff;
+      border: none;
+    }
+    .btn-primary:hover {
+      background: #2563eb;
+    }
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      color: #e2e8f0;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.16);
+    }
+    .top-nav {
+      max-width: 1000px;
+      margin: 0 auto 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-link {
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s;
+    }
+    .nav-link:hover {
+      color: #ffffff;
+    }
+    @media print {
+      body {
+        background: #fff;
+        color: #000;
+      }
+      .card {
+        page-break-inside: avoid;
+        border: 2px solid #ccc;
+        box-shadow: none;
+      }
+      .header, .top-nav, .btn {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-nav">
+    <a href="./" class="nav-link">← العودة إلى المنصة الرئيسية (ALQAMI)</a>
+    <a href="./mobile/?mode=scan" class="nav-link" style="color: #38bdf8;">فتح كاميرا المسح على الهاتف (Scan Mode) →</a>
+  </div>
+
+  <header class="header">
+    <h1 class="title">بطاقات المسح للواقع المعزز (AR Scannable Targets)</h1>
+    <p class="subtitle">
+      افتح هذه الصفحة على شاشة حاسوبك أو اطبع البطاقات، ثم وجّه كاميرا هاتفك بعد فتح وضع المسح (Scan Mode) لتجسيد النفائس والمخطوطات ثلاثية الأبعاد فوراً!
+    </p>
+    <div class="instructions-box">
+      <span>خطوات اللعب: افتح وضع المسح من هاتفك ← وجّه الكاميرا إلى أي بطاقة أدناه ← يظهر المجسم التفاعلي ثلاثي الأبعاد في الواقع المعزز</span>
+    </div>
+  </header>
+
+  <main class="grid">
+
+    <!-- Target 1: Hand / Khamsa (Triggers Islamic Helmet) -->
+    <article class="card">
+      <div class="card-img-wrapper">
+        <span class="card-badge">Target 01</span>
+        <img src="./mobile/hand.jpg" alt="بطاقة اليد التراثية - Hand Target">
+      </div>
+      <div class="card-content">
+        <h2 class="card-title">كف البركة والتميمة (Hand / Khamsa)</h2>
+        <p class="card-desc">تميمة يد تراثية تعبيرية، مستوحاة من رموز الحماية والدرع الإسلامي القديم.</p>
+        <div class="card-trigger">
+          التجسيد التفاعلي: <strong>خوذة المحارب الإسلامية الأثرية (Old Islamic Helmet 3D)</strong> تطفو وتدور فوق اليد!
+        </div>
+        <div class="card-actions">
+          <a href="./mobile/hand.jpg" target="_blank" class="btn btn-secondary">تكبير الصورة</a>
+          <button onclick="window.print()" class="btn btn-primary">طباعة</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- Target 2: Manuscript (Al-Qabasat) -->
+    <article class="card">
+      <div class="card-img-wrapper">
+        <span class="card-badge">Target 02</span>
+        <img src="./mobile/manuscript.jpg" alt="مخطوط القبسات">
+      </div>
+      <div class="card-content">
+        <h2 class="card-title">مخطوط القبسات الشريف (Al-Qabasat)</h2>
+        <p class="card-desc">صفحة تراثية أصلية من مخطوط القبسات الفلسفي بخط النسخ العربي المحكم وحواشي العلماء.</p>
+        <div class="card-trigger">
+          التجسيد التفاعلي: <strong>المخطوط ثلاثي الأبعاد</strong> + بطاقة الفهرسة المرتبطة BIBFRAME وشبكة الـ RDF.
+        </div>
+        <div class="card-actions">
+          <a href="./mobile/manuscript.jpg" target="_blank" class="btn btn-secondary">تكبير الصورة</a>
+          <button onclick="window.print()" class="btn btn-primary">طباعة</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- Target 3: Quran Manuscript -->
+    <article class="card">
+      <div class="card-img-wrapper">
+        <span class="card-badge">Target 03</span>
+        <img src="./mobile/quran.jpg" alt="المصحف الشريف المذهب">
+      </div>
+      <div class="card-content">
+        <h2 class="card-title">المصحف الشريف المذهب (Illuminated Quran)</h2>
+        <p class="card-desc">صفحة مصحف شريف تاريخي مزخرفة بإطارات التذهيب اللازوردي وزخارف التوريق الإسلامية.</p>
+        <div class="card-trigger">
+          التجسيد التفاعلي: <strong>بطاقة بيانات النسخة المصحفية</strong> وشجرة الأوصاف الببليوغرافية في الواقع المعزز.
+        </div>
+        <div class="card-actions">
+          <a href="./mobile/quran.jpg" target="_blank" class="btn btn-secondary">تكبير الصورة</a>
+          <button onclick="window.print()" class="btn btn-primary">طباعة</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- Target 4: Kufic Manuscript -->
+    <article class="card">
+      <div class="card-img-wrapper">
+        <span class="card-badge">Target 04</span>
+        <img src="./mobile/kufic.jpg" alt="الرق الكوفي الأثري">
+      </div>
+      <div class="card-content">
+        <h2 class="card-title">الرق القرآني بالخط الكوفي (Early Kufic)</h2>
+        <p class="card-desc">رق أثري نادر يعود للقرون الهجرية الأولى مكتوب بالخط الكوفي المجرد مع علامات الضبط بالحمرة.</p>
+        <div class="card-trigger">
+          التجسيد التفاعلي: <strong>لوحة توثيق الخطوط التاريخية</strong> وتحليل خصائص المداد ونوع الرق.
+        </div>
+        <div class="card-actions">
+          <a href="./mobile/kufic.jpg" target="_blank" class="btn btn-secondary">تكبير الصورة</a>
+          <button onclick="window.print()" class="btn btn-primary">طباعة</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- Target 5: Ceramic Artifact -->
+    <article class="card">
+      <div class="card-img-wrapper">
+        <span class="card-badge">Target 05</span>
+        <img src="./mobile/alqami_artifact.jpg" alt="تحفة خزفية أثرية">
+      </div>
+      <div class="card-content">
+        <h2 class="card-title">التحفة الخزفية التراثية (Ceramic Relic)</h2>
+        <p class="card-desc">قطعة خزفية مزججة بنقوش تراثية وزخارف هندسية تعود لعصور الازدهار الحضاري.</p>
+        <div class="card-trigger">
+          التجسيد التفاعلي: <strong>مجسم التحفة ثلاثي الأبعاد</strong> مع خصائص المادة وفترة الصنع.
+        </div>
+        <div class="card-actions">
+          <a href="./mobile/alqami_artifact.jpg" target="_blank" class="btn btn-secondary">تكبير الصورة</a>
+          <button onclick="window.print()" class="btn btn-primary">طباعة</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- Target 6: Prague Souvenir Box Facade -->
+    <article class="card">
+      <div class="card-img-wrapper">
+        <span class="card-badge">Target 06</span>
+        <img src="./mobile/praha_front.jpg" alt="واجهة صندوق براغ الأثري">
+      </div>
+      <div class="card-content">
+        <h2 class="card-title">صندوق تحفة براغ (Prague Box Facade)</h2>
+        <p class="card-desc">واجهة صندوق خشبي تذكاري بنقوش جسر تشارلز وكلمة Praha بالخط القوطي (نظام التعرف المغلق Closed-Set).</p>
+        <div class="card-trigger">
+          التجسيد التفاعلي: <strong>تفعيل التعرف بالذكاء الاصطناعي</strong> وإطلاق مجسم الصندوق وتفاصيله الدقيقة.
+        </div>
+        <div class="card-actions">
+          <a href="./mobile/praha_front.jpg" target="_blank" class="btn btn-secondary">تكبير الصورة</a>
+          <button onclick="window.print()" class="btn btn-primary">طباعة</button>
+        </div>
+      </div>
+    </article>
+
+  </main>
+
+</body>
+</html>
