@@ -17,8 +17,8 @@
   <!-- Google Model Viewer component -->
   <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
   <script src="https://unpkg.com/meshoptimizer@0.21.0/meshopt_decoder.js"></script>
-  <script type="module" crossorigin src="./assets/index-BX0r0cVc.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-DuPv17MV.css">
+  <script type="module" crossorigin src="./assets/index-CTYmzrRl.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-CQj9xf4G.css">
 </head>
 <body class="dark-theme">
   <div id="app">
@@ -46,6 +46,11 @@
         </button>
 
         <div id="closedset-hud-container" style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 60; width: 92%; max-width: 440px;"></div>
+      </div>
+
+      <!-- AR Drawing Canvas & Interactive Overlay -->
+      <div id="ar-drawing-container" style="display: none; position: absolute; top:0; left:0; width: 100%; height: 100%; z-index: 25; pointer-events: none;">
+        <canvas id="ar-drawing-canvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: auto;"></canvas>
       </div>
 
       <!-- 3D Model Viewer Container (3D Mode) -->
@@ -132,6 +137,11 @@
           <button id="btn-theme-toggle" class="btn-side" title="Toggle Background">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sun" style="display: none;"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-moon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+          </button>
+
+          <button id="btn-toggle-drawing" class="btn-side" title="لوحة الرسم والتظليل (AR Drawing)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg>
+            <span>الرسم</span>
           </button>
 
           <button id="btn-snapshot" class="btn-side" title="Capture Snapshot">
@@ -263,6 +273,50 @@
           <div class="reticle-corner bl"></div><div class="reticle-corner br"></div>
         </div>
         <div class="scan-msg"><span>Align manuscript within frame</span></div>
+      </div>
+
+      <!-- Al-Kafeel Museum AR Game HUD (Scan Mode) -->
+      <div id="ar-game-hud" class="ar-game-hud-panel vision-glass" style="display: none;">
+        <div class="game-hud-header">
+          <div class="game-source-tag">متحف الكفيل للنفائس • Al-Kafeel Museum</div>
+          <button id="btn-next-quest" class="btn-game-nav">المهمة التالية</button>
+        </div>
+        <div id="game-quest-title" class="game-quest-title">تحدي الفارس التراثي</div>
+        <div id="game-prompt-text" class="game-prompt-text">لا تدع الفارس يسقط دون سلاح! اختر من نفائس متحف الكفيل السلاح الأسطوري، أو ارسم سيفك ودرعك بيدك لنجدته!</div>
+        <div id="game-choices-grid" class="game-choices-grid"></div>
+        <div class="game-footer-actions">
+          <button id="btn-toggle-stencil" class="btn-game-nav">إظهار مخطط الرسم</button>
+          <button id="btn-open-drawing-hud" class="btn-trigger-ar-reaction">لوحة الرسم والتظليل</button>
+        </div>
+      </div>
+
+      <!-- AR Drawing Controls Toolbar (Active when drawing) -->
+      <div id="ar-drawing-toolbar" class="ar-drawing-toolbar" style="display: none;">
+        <button class="draw-btn-tool active" data-tool="pencil" id="tool-pencil">قلم التظليل</button>
+        <button class="draw-btn-tool btn-gold-gild" data-tool="gold" id="tool-gold">ريشة الذهب</button>
+        <button class="draw-btn-tool" data-tool="brush" id="tool-brush">فرشاة حرة</button>
+        <button class="draw-btn-tool" data-tool="eraser" id="tool-eraser">ممحاة</button>
+
+        <div class="draw-swatches">
+          <span class="color-dot active" data-color="#e6b43c" style="background: #e6b43c;" title="ذهب ملكي"></span>
+          <span class="color-dot" data-color="#1e56a0" style="background: #1e56a0;" title="أزرق لازوردي"></span>
+          <span class="color-dot" data-color="#b83b3b" style="background: #b83b3b;" title="أحمر قرمزي"></span>
+          <span class="color-dot" data-color="#ffffff" style="background: #ffffff;" title="أبيض ناصع"></span>
+        </div>
+
+        <button class="draw-btn-tool" id="btn-clear-drawing">مسح</button>
+        <button class="btn-trigger-ar-reaction" id="btn-submit-drawing">إطلاق التفاعل في الواقع المعزز</button>
+        <button class="draw-btn-tool" id="btn-close-drawing" style="color: #ff453a;">إغلاق</button>
+      </div>
+
+      <!-- AR Celebration & Reward Modal -->
+      <div id="ar-celebration-modal" class="ar-celebration-overlay" style="display: none;">
+        <div class="ar-celebration-dialog">
+          <div class="celebration-badge">تم إنجاز التحدي بنجاح</div>
+          <div id="celeb-title" class="celebration-title">سيف ذو الفقار</div>
+          <div id="celeb-desc" class="celebration-desc">السيف التاريخي ذو الشعبتين بنقوشه وآياته القرآنية المذهبة من نفائس خزانة متحف الكفيل. تم تجسيد القطعة في الواقع المعزز!</div>
+          <button id="btn-celeb-continue" class="celebration-btn-close">متابعة التجربة في الكاميرا</button>
+        </div>
       </div>
     </div>
 
