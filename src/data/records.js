@@ -191,7 +191,7 @@ export const ARTIFACT_RECORDS = [
       en: "By Mir Damad Muhammad Baqir al-Husayni al-Astarabadi."
     },
     model: {
-      glb: "./models/model.glb",
+      glb: "./models/model.glb?v=3",
       poster: "./images/manuscript.jpg",
       scale: "0.95 0.95 0.95",
       cameraOrbit: "25deg 70deg 110%",

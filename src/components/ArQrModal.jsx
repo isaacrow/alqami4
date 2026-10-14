@@ -23,7 +23,7 @@ export default function ArQrModal({ artifact, onClose, lang }) {
   const getModelSlug = () => {
     if (artifact.model?.glb) {
       const parts = artifact.model.glb.split('/');
-      return parts[parts.length - 1].replace(/\.glb$/i, '');
+      return parts[parts.length - 1].split('?')[0].replace(/\.glb$/i, '');
     }
     return artifact.id;
   };
